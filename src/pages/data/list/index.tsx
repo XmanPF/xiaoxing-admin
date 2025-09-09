@@ -9,29 +9,34 @@ import FilterForm from './components/filter-form';
 
 const columns: TableProps<UserRecord>['columns'] = [
   {
-    title: '用户名称',
-    key: 'nickname',
-    dataIndex: 'nickname',
-  },
-   {
-    title: '公司名称',
+    title: '包名',
     key: 'nickname',
     dataIndex: 'nickname',
   },
   {
-    title: '角色',
+    title: '用户名',
     key: 'username',
     dataIndex: 'username',
   },
   {
-    title: '创建时间',
+    title: '公司名',
+    key: 'username',
+    dataIndex: 'username',
+  },
+  {
+    title: '大小',
+    key: 'username',
+    dataIndex: 'username',
+  },
+  {
+    title: '上传时间',
     key: 'email',
     dataIndex: 'email',
   },
   {
     title: '操作',
     key: 'action',
-    width: 240,
+    width: 180,
     align: 'center',
     render: () => {
       return <>
@@ -42,8 +47,7 @@ const columns: TableProps<UserRecord>['columns'] = [
         >
           <Button type="link" danger>删除</Button>
         </Popconfirm>
-        <Button type="link">停用</Button>
-        <Button type="link">编辑</Button>
+        <Button type="link">下载</Button>
       </>
     },
   },
@@ -81,7 +85,7 @@ const QueryTable: React.FC = () => {
       size="large"
     >
       <Space direction="vertical" size="large">
-        <Card
+        {/* <Card
           bordered={false}
           styles={{
             body: {
@@ -90,11 +94,11 @@ const QueryTable: React.FC = () => {
           }}
         >
           <FilterForm setPayload={setPayload} />
-        </Card>
+        </Card> */}
         <Card
           bordered={false}
           className="with-table"
-          title={`总共 ${pagination.total.toLocaleString()} 条`}
+          // title={`总共 ${pagination.total.toLocaleString()} 条`}
           extra={
             <Row justify="space-between" align="middle">
               <Space>

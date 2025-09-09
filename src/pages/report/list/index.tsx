@@ -9,19 +9,29 @@ import FilterForm from './components/filter-form';
 
 const columns: TableProps<UserRecord>['columns'] = [
   {
-    title: '用户名称',
-    key: 'nickname',
-    dataIndex: 'nickname',
-  },
-   {
-    title: '公司名称',
+    title: '用户名',
     key: 'nickname',
     dataIndex: 'nickname',
   },
   {
-    title: '角色',
+    title: '公司名',
+    key: 'nickname',
+    dataIndex: 'nickname',
+  },
+  {
+    title: '模型',
     key: 'username',
     dataIndex: 'username',
+  },
+   {
+    title: '差得量',
+    key: 'email',
+    dataIndex: 'email',
+  },
+   {
+    title: '查询量',
+    key: 'email',
+    dataIndex: 'email',
   },
   {
     title: '创建时间',
@@ -31,7 +41,7 @@ const columns: TableProps<UserRecord>['columns'] = [
   {
     title: '操作',
     key: 'action',
-    width: 240,
+    width: 180,
     align: 'center',
     render: () => {
       return <>
@@ -43,7 +53,6 @@ const columns: TableProps<UserRecord>['columns'] = [
           <Button type="link" danger>删除</Button>
         </Popconfirm>
         <Button type="link">停用</Button>
-        <Button type="link">编辑</Button>
       </>
     },
   },

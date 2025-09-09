@@ -43,14 +43,6 @@ const Header: React.FC = () => {
               </Space>
             </ThemeProvider>
           </Col>
-          <Col
-            style={{
-              maxWidth: 520,
-              width: '100%',
-            }}
-          >
-            <SearchBar />
-          </Col>
           <Col>
             <Space align="center" size="middle">
               <ThemeSwitcher />

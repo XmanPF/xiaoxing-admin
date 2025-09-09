@@ -31,12 +31,17 @@ const FilterForm: React.FC<{ setPayload: (payload: any) => void }> = ({ setPaylo
     >
       <Row gutter={16}>
         <Col xs={24} sm={12} md={8} lg={8} xl={8} xxl={6}>
-          <Form.Item name="nickname" label="账号">
+          <Form.Item name="nickname" label="用户名称">
             <Input />
           </Form.Item>
         </Col>
         <Col xs={24} sm={12} md={8} lg={8} xl={8} xxl={6}>
-          <Form.Item name="role" label="角色">
+          <Form.Item name="nickname" label="公司名称">
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={8} xl={8} xxl={6}>
+          <Form.Item name="role" label="模型">
             <Select options={roleList} allowClear />
           </Form.Item>
         </Col>

@@ -20,7 +20,7 @@ export const getToken = () => {
  * @param token
  */
 export const setToken = (token: string) => {
-  localStorage.setItem(TOKEN_KEY, `Bearer ${token}`);
+  localStorage.setItem(TOKEN_KEY, `${token}`);
 };
 
 /**

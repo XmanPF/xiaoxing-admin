@@ -53,7 +53,36 @@ const routes: RouteObjectType[] = [
           },
         ],
       },
-
+      {
+        name: '数据包管理',
+        key: 'pages.data',
+        icon: 'grid-tones',
+        path: 'data',
+        children: [
+          {
+            name: '数据包列表',
+            key: 'pages.data.list',
+            path: 'list',
+            fullPath: '/data/list',
+            component: '/pages/data/list',
+          },
+        ],
+      },
+      {
+        name: '报表管理',
+        key: 'pages.report',
+        icon: 'file-box-tones',
+        path: 'report',
+        children: [
+          {
+            name: '数据报表',
+            key: 'pages.report.list',
+            path: 'list',
+            fullPath: '/report/list',
+            component: '/pages/report/list',
+          },
+        ],
+      },
     ],
   },
 

@@ -44,7 +44,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
       }}
     >
       <div className={styles.root}>
-        <div className={styles.header}>
+        {/* <div className={styles.header}>
           {props.crumbs && (
             <Breadcrumb className={styles.crumb} items={props.crumbs} />
           )}
@@ -78,7 +78,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
               }}
             />
           )}
-        </div>
+        </div> */}
         <div className={styles.container}>{children}</div>
       </div>
     </ConfigProvider>

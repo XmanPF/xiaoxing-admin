@@ -36,7 +36,7 @@ const items: MenuProps['items'] = [
   // },
   {
     key: 'logout',
-    label: 'Logout',
+    label: '登出',
     icon: <Icon name="log-out" size={16} />,
   },
 ];
