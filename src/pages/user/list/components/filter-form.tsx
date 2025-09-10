@@ -2,7 +2,7 @@ import { roleList } from '@/config/const';
 import { Button, Col, Form, Input, Row, Select, Space,DatePicker } from 'antd';
 import type React from 'react';
 const { RangePicker } = DatePicker;
-const FilterForm: React.FC<{ setPayload: (payload: any) => void }> = ({ setPayload }) => {
+const FilterForm: any = ({ setPayload,handleAdd }) => {
 
   const [form] = Form.useForm();
   const onFinish = ()=>{
@@ -16,7 +16,7 @@ const FilterForm: React.FC<{ setPayload: (payload: any) => void }> = ({ setPaylo
   }
 
   const add = () => {
-    
+    handleAdd(true)
   }
   return (
     <Form
@@ -31,7 +31,12 @@ const FilterForm: React.FC<{ setPayload: (payload: any) => void }> = ({ setPaylo
     >
       <Row gutter={16}>
         <Col xs={24} sm={12} md={8} lg={8} xl={8} xxl={6}>
-          <Form.Item name="nickname" label="账号">
+          <Form.Item name="nickname" label="用户名称">
+            <Input />
+          </Form.Item>
+        </Col>
+          <Col xs={24} sm={12} md={8} lg={8} xl={8} xxl={6}>
+          <Form.Item name="nickname" label="公司名称">
             <Input />
           </Form.Item>
         </Col>

@@ -1,4 +1,3 @@
-import { roleList } from '@/config/const';
 import { Button, Col, Form, Input, Row, Select, Space,DatePicker } from 'antd';
 import type React from 'react';
 const { RangePicker } = DatePicker;
@@ -42,7 +41,7 @@ const FilterForm: React.FC<{ setPayload: (payload: any) => void }> = ({ setPaylo
         </Col>
         <Col xs={24} sm={12} md={8} lg={8} xl={8} xxl={6}>
           <Form.Item name="role" label="模型">
-            <Select options={roleList} allowClear />
+            <Select options={[]} allowClear />
           </Form.Item>
         </Col>
         <Col xs={24} sm={12} md={8} lg={8} xl={8} xxl={6}>

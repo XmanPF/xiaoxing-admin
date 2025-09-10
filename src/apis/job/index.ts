@@ -7,3 +7,7 @@ import type { HttpResponse, } from '@/apis/types';
 export function submit(payload): Promise<HttpResponse<any>> {
   return request.post('/user',payload);
 }
+
+export function upload(payload): Promise<HttpResponse<any>> {
+  return request.post('/user',payload);
+}

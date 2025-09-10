@@ -6,6 +6,7 @@ import { usePagination } from 'ahooks';
 import { Button, Card, Row, Space, Table, TableProps, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
 import FilterForm from './components/filter-form';
+import AddModal from './components/addModal';
 
 const columns: TableProps<UserRecord>['columns'] = [
   {
@@ -51,6 +52,7 @@ const columns: TableProps<UserRecord>['columns'] = [
 const QueryTable: React.FC = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [payload, setPayload] = useState({});
+  const [addVisible, setAddVisible] = useState(false);
   const { data, loading, pagination } = usePagination(
     async ({ current, pageSize }) => {
       const res = await getUsers({ ...payload, page: current, pageSize });
@@ -76,6 +78,10 @@ const QueryTable: React.FC = () => {
     onChange: onSelectChange,
   };
 
+  const onAddOk = (payload)=>{
+
+  }
+
   return (
     <PageContainer
       size="large"
@@ -89,7 +95,7 @@ const QueryTable: React.FC = () => {
             },
           }}
         >
-          <FilterForm setPayload={setPayload} />
+          <FilterForm setPayload={setPayload} handleAdd={setAddVisible} />
         </Card>
         <Card
           bordered={false}
@@ -118,6 +124,7 @@ const QueryTable: React.FC = () => {
             pagination={pagination}
           />
         </Card>
+        {addVisible && <AddModal onOk={onAddOk} formData={{}} onCancel={() => {setAddVisible(false)}} />}  
       </Space>
     </PageContainer>
   );

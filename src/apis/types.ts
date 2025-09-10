@@ -5,6 +5,7 @@ export interface HttpResponse<T = unknown> {
   msg: string;
   code: number;
   data: T;
+  message:boolean
 }
 
 /**
