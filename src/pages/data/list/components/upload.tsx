@@ -11,6 +11,7 @@ import {
   Input,
   List,
   message,
+  Modal,
   Row,
   Select,
   Space,
@@ -19,23 +20,25 @@ import {
   Upload,
 } from 'antd';
 import React, { useState } from 'react';
-import { submit } from '@/apis/job';
+import { submit, uploadPackage } from '@/apis/job';
 import { UploadOutlined } from "@ant-design/icons";
 
-const AccountPage: React.FC = () => {
+const UploadPage: React.FC<any> = ({ onCancel }) => {
   const [form] = Form.useForm();
   const handleSubmit = async () => {
     const values = await form.validateFields();
     console.log('Success:', values);
-    // const res = await submit(values);
+    const res = await uploadPackage(values);
     if (res.message) {
       message.success('操作成功');
+      onCancel()
     }
+
   }
 
   const uploadProps: any = {
     name: 'file',
-    action: `${import.meta.env.VITE_API_BASE_URL}/api/upload`,
+    action: `${import.meta.env.VITE_API_BASE_URL}/api/common/uploadFile`,
     headers: {
       authorization: 'authorization-text',
     },
@@ -52,7 +55,14 @@ const AccountPage: React.FC = () => {
   };
 
   return (
-    <PageContainer size="middle" title="Account management">
+    <Modal
+      destroyOnClose={true}
+      title="弹窗"
+      visible={true}
+      onOk={handleSubmit}
+      onCancel={onCancel}
+      width={800}
+    >
       <Form
         form={form}
         initialValues={{
@@ -64,39 +74,23 @@ const AccountPage: React.FC = () => {
       >
         <Space size="large" direction="vertical">
           <Row >
-            <Col xs={24} lg={16}>
+            <Col xs={24} lg={24}>
               <Card bordered={false}>
-                <Form.Item name="avatar" required>
-                  <Space align="center" size="middle">
+                <Form.Item name="fileUrl" required>
                     <Upload
-                    {...uploadProps}
+                      {...uploadProps}
                     >
                       <Button>上传数据包</Button>
                     </Upload>
-                  </Space>
                 </Form.Item>
-                <Divider />
-                <Row gutter={24}>
-                  <Col xs={24} md={12} lg={24} xl={12}>
-                    <Form.Item name="mode" label="模型选择" required>
-                      <Select mode='multiple' placeholder="请选择模型" options={[]} allowClear>
-                      </Select>
-                    </Form.Item>
-                  </Col>
-                </Row>
               </Card>
             </Col>
           </Row>
         </Space>
         <Divider />
-        <Row justify="start">
-          <Col>
-            <Button type="primary" onClick={handleSubmit}>点击上传</Button>
-          </Col>
-        </Row>
       </Form>
-    </PageContainer>
+    </Modal>
   );
 };
 
-export default AccountPage;
+export default UploadPage;

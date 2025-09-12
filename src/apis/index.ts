@@ -4,7 +4,7 @@
 
 import { appendPending, removePending } from '@/apis/pending';
 import { getToken } from '@/utils/token.ts';
-import axios, { type AxiosResponse } from 'axios';
+import axios from 'axios';
 
 /**
  * 请求器
@@ -26,10 +26,11 @@ request.interceptors.request.use(
   (config) => {
     const token = getToken();
     if (token) {
-      config.headers.Authorization = token;
+      config.headers.token = token;
     }
     // removePending(config); // 在发送请求前移除上一个相同的请求
-    appendPending(config); // 将当前请求添加到队列中
+     console.log(222,config)
+    // appendPending(config); // 将当前请求添加到队列中
     return config;
   },
   (error) => {
@@ -41,13 +42,15 @@ request.interceptors.request.use(
  * 响应拦截器
  */
 request.interceptors.response.use(
-  <T>(response: AxiosResponse<T>): T => {
-    removePending(response.config); // 在响应后移除请求
-    return response.data;
+  <T>(response: any): T => {
+    console.log(3333)
+    // removePending(response.config); // 在响应后移除请求
+    return response;
   },
   (error) => {
+    console.log(error)
     if (error.config) {
-      removePending(error.config); // 在请求错误后移除请求
+      // removePending(error.config); // 在请求错误后移除请求
     }
     // 这里可以统一处理各种错误情况
     if (error.response) {

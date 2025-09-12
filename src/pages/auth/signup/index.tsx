@@ -1,4 +1,3 @@
-import { register } from '@/apis/auth';
 import type { RegisterData } from '@/apis/auth/types';
 import type { HttpError } from '@/apis/types';
 import { LOGIN_ROUTE } from '@/router/routes';
@@ -33,8 +32,8 @@ const Signup: React.FC = () => {
   const onFinish = async (values: FieldType) => {
     setSubmitting(true);
     try {
-      const data = pick(values, ['username', 'password']) as RegisterData;
-      await register(data);
+      // const data = pick(values, ['username', 'password']) as RegisterData;
+      // await register(data);
       setError(undefined);
       navigate(LOGIN_ROUTE);
       message.success('注册成功 🎉');

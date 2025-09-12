@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
     "build": "tsc && vite build",
     "build:test": "tsc && vite build --mode development",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -20,7 +20,7 @@
     "ahooks": "^3.8.0",
     "antd": "^5.17.4",
     "antd-style": "^3.6.2",
-    "axios": "^1.7.2",
+    "axios": "^1.11.0",
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "lucide-react": "^0.379.0",

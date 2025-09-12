@@ -6,6 +6,7 @@ import { usePagination } from 'ahooks';
 import { Button, Card, Row, Space, Table, TableProps, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
 import FilterForm from './components/filter-form';
+import { getResultPage } from '@/apis/job';
 
 const columns: TableProps<UserRecord>['columns'] = [
   {
@@ -15,28 +16,28 @@ const columns: TableProps<UserRecord>['columns'] = [
   },
   {
     title: '公司名',
-    key: 'nickname',
-    dataIndex: 'nickname',
+    key: 'componyName',
+    dataIndex: 'componyName',
   },
   {
     title: '模型',
-    key: 'username',
-    dataIndex: 'username',
+    key: 'models',
+    dataIndex: 'models',
   },
    {
     title: '差得量',
-    key: 'email',
-    dataIndex: 'email',
+    key: 'queryResultSize',
+    dataIndex: 'queryResultSize',
   },
    {
     title: '查询量',
-    key: 'email',
-    dataIndex: 'email',
+    key: 'querySize',
+    dataIndex: 'querySize',
   },
   {
     title: '创建时间',
-    key: 'email',
-    dataIndex: 'email',
+    key: 'createTime',
+    dataIndex: 'createTime',
   },
   {
     title: '操作',
@@ -62,7 +63,7 @@ const QueryTable: React.FC = () => {
   const [payload, setPayload] = useState({});
   const { data, loading, pagination } = usePagination(
     async ({ current, pageSize }) => {
-      const res = await getUsers({ ...payload, page: current, pageSize });
+      const res = await getResultPage({ ...payload, pageIndex: current, pageSize });
       return {
         list: res.data,
         total: res.meta.total,

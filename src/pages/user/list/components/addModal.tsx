@@ -48,6 +48,19 @@ export default class AddModal extends Component<IProps, IState> {
 
     public onFinish = () => {
         this.formRef.current?.validateFields().then((res: any) => {
+            const {imgList1,imgList2,imgList3} = res
+			if(imgList1 && imgList1.length) {
+                res.businessLicense = imgList1.length && imgList1[0].response ? imgList1[0].response.data : imgList1[0].url;
+                delete res.fileList;
+            }
+            if(imgList2 && imgList2.length) {
+                res.idCardA = imgList2.length && imgList2[0].response ? imgList2[0].response.data : imgList2[0].url;
+                delete res.imgList2;
+            }
+            if(imgList3 && imgList3.length) {
+                res.idCardB = imgList3.length && imgList3[0].response ? imgList3[0].response.data : imgList3[0].url;
+                delete res.imgList3;
+            }
             this.props.onOk(res);
         })
     };
@@ -61,7 +74,7 @@ export default class AddModal extends Component<IProps, IState> {
     private get FromItemConfigs() {
         const { userType, imgList1, imgList2, imgList3 } = this.state
         const base = [{
-            name: 'nickName',
+            name: 'userName',
             label: `用户名`,
             initialValue: null,
             rules: [{ required: true, message: '请输入用户名' }],
@@ -97,7 +110,7 @@ export default class AddModal extends Component<IProps, IState> {
             }
         }]
         const list1 = [{
-            name: 'belongCompany',
+            name: 'belonger',
             label: '归属公司',
             initialValue: null,
             rules: [{ required: true, message: '请选择归属公司' }],
@@ -110,7 +123,7 @@ export default class AddModal extends Component<IProps, IState> {
                 JSX: <Select />,
             }
         }, {
-            name: 'nickName',
+            name: 'nikeName',
             label: `姓名`,
             initialValue: null,
             rules: [{ required: true, message: '请输入用户名' }],
@@ -155,7 +168,7 @@ export default class AddModal extends Component<IProps, IState> {
                 JSX: <Input />
             }
         }, {
-            name: 'png1',
+            name: 'businessLicense',
             label: `营业执照`,
             initialValue: null,
             JSXElementConfig: {
@@ -221,7 +234,7 @@ export default class AddModal extends Component<IProps, IState> {
                 />
             }
         }]
-        return [...base, ...(userType === 2 ? list1 : list2)]
+        return [...base, ...(userType === 3 ? list1 : list2)]
     }
 
     public render() {

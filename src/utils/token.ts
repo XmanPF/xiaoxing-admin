@@ -36,3 +36,27 @@ export const delToken = () => {
 export const hasToken = () => {
   return !!localStorage.getItem(TOKEN_KEY);
 };
+
+export const setUserInfo = (userInfo: any) => {
+  localStorage.setItem('userInfo', JSON.stringify(userInfo));
+}
+
+export const getUserInfo = () => {
+  const info = localStorage.getItem('userInfo');
+  if (info) {
+    return JSON.parse(info);
+  }
+  return null;
+}
+
+export const setModelList = (list: any[]) => {
+  localStorage.setItem('modelList', JSON.stringify(list));
+}
+
+export const getModelList = () => {
+  const info = localStorage.getItem('modelList');
+  if (info) {
+    return JSON.parse(info);
+  }
+  return [];
+}

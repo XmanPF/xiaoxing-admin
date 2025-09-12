@@ -5,12 +5,14 @@ import NoticeDrawer from '@/components/header/notice-drawer';
 import SearchBar from '@/components/header/search-bar';
 import useStyles from '@/components/header/styles';
 import ThemeSwitcher from '@/components/header/theme-switcher';
+import { getUserInfo } from '@/utils/token';
 import { Avatar, Col, Layout, Row, Space, Typography } from 'antd';
 import { ThemeProvider } from 'antd-style';
 import type React from 'react';
 
 const Header: React.FC = () => {
   const { styles } = useStyles();
+  const userInfo= getUserInfo() as any;
   return (
     <>
       <Layout.Header className={styles.ghost} />
@@ -48,6 +50,7 @@ const Header: React.FC = () => {
               <ThemeSwitcher />
               <FullscreenButton />
               <span />
+              {userInfo?.nickname}
               <AvatarDropdown />
             </Space>
           </Col>

@@ -1,3 +1,4 @@
+import { logout } from '@/apis/auth';
 import Icon from '@/components/icon';
 import { useAppSelector } from '@/hooks/store.ts';
 import { Avatar, Dropdown, Spin, type MenuProps } from 'antd';
@@ -42,20 +43,13 @@ const items: MenuProps['items'] = [
 ];
 
 const AvatarDropdown: React.FC = () => {
-  const { avatar, loading } = useAppSelector((state) => state.user);
+  const { avatar } = useAppSelector((state) => state.user);
 
   const navigate = useNavigate();
 
-  const onMenuClick: MenuProps['onClick'] = ({ key }) => {
-    switch (key) {
-      case 'logout':
-        navigate('/login');
-        break;
-      case 'github':
-      case 'documents':
-        window.open('https://github.com/shulkme/react-admin');
-        break;
-    }
+  const onMenuClick = async () => {
+    await logout()
+    navigate('/login');
   };
 
   return (
@@ -72,11 +66,7 @@ const AvatarDropdown: React.FC = () => {
     >
       <div>
         <ThemeProvider themeMode="dark">
-          {loading ? (
-            <Spin />
-          ) : (
-            <Avatar src={avatar} shape="square" style={{ cursor: 'pointer' }} />
-          )}
+          <Avatar src={avatar} shape="square" style={{ cursor: 'pointer' }} />
         </ThemeProvider>
       </div>
     </Dropdown>

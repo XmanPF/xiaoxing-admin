@@ -21,7 +21,7 @@ const routes: RouteObjectType[] = [
         name: 'Home',
         fullPath: '/',
         hideInMenu: true,
-        redirect: '/settings',
+        redirect: '/data',
       },
       {
         name: '用户管理',
@@ -38,21 +38,21 @@ const routes: RouteObjectType[] = [
           },
         ],
       },
-      {
-        name: '业务管理',
-        key: 'pages.settings',
-        icon: 'gear-2-tones',
-        path: 'settings',
-        children: [
-          {
-            key: 'pages.settings.account',
-            name: '业务操作',
-            path: 'account',
-            fullPath: '/settings/account',
-            component: '/pages/settings/account',
-          },
-        ],
-      },
+      // {
+      //   name: '业务管理',
+      //   key: 'pages.settings',
+      //   icon: 'gear-2-tones',
+      //   path: 'settings',
+      //   children: [
+      //     {
+      //       key: 'pages.settings.account',
+      //       name: '业务操作',
+      //       path: 'account',
+      //       fullPath: '/settings/account',
+      //       component: '/pages/settings/account',
+      //     },
+      //   ],
+      // },
       {
         name: '数据包管理',
         key: 'pages.data',

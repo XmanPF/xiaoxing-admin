@@ -54,25 +54,6 @@ const ImgCut: React.FC<IProps> = (props) => {
       message.error(size === 1  ? "图片大小必须小于 1MB!" : '上传失败，图片过大！');
       return Upload.LIST_IGNORE;
     }
-
-    if(changeName){
-      console.log('test',file)
-      const {width = 0,height = 0} = await new Promise(resolve => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const image:any = new Image();
-          image.src = reader.result;
-          image.onload = () => {
-            resolve({width:image.width,height:image.height})
-        }
-        };
-      });
-       
-      const newFile = new File([file], `_${width}x${height}.${file.name.split('.').slice(-1)}`);
-      return Promise.resolve(newFile)
-    }
-
     return Promise.resolve(file)
   }
 

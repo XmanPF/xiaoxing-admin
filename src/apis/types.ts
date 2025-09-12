@@ -12,7 +12,7 @@ export interface HttpResponse<T = unknown> {
  * 统一异常体
  */
 export interface HttpError {
-  msg: string;
+  message: string;
   code: number;
 }
 

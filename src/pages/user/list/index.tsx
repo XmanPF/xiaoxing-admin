@@ -1,64 +1,28 @@
-import { getUsers } from '@/apis/user';
+import { getUsers, delUser, addUser } from '@/apis/user';
 import { UserRecord } from '@/apis/user/types';
 import Icon from '@/components/icon';
 import PageContainer from '@/components/page-container';
 import { usePagination } from 'ahooks';
-import { Button, Card, Row, Space, Table, TableProps, Popconfirm } from 'antd';
+import { Button, Card, Row, Space, Table, TableProps, Popconfirm, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import FilterForm from './components/filter-form';
 import AddModal from './components/addModal';
+import AuthModal from './components/authModal';
+import { authorization } from '@/apis/job';
 
-const columns: TableProps<UserRecord>['columns'] = [
-  {
-    title: '用户名称',
-    key: 'nickname',
-    dataIndex: 'nickname',
-  },
-   {
-    title: '公司名称',
-    key: 'nickname',
-    dataIndex: 'nickname',
-  },
-  {
-    title: '角色',
-    key: 'username',
-    dataIndex: 'username',
-  },
-  {
-    title: '创建时间',
-    key: 'email',
-    dataIndex: 'email',
-  },
-  {
-    title: '操作',
-    key: 'action',
-    width: 240,
-    align: 'center',
-    render: () => {
-      return <>
-        <Popconfirm
-          title="确认删除？"
-          okText="是"
-          cancelText="否"
-        >
-          <Button type="link" danger>删除</Button>
-        </Popconfirm>
-        <Button type="link">停用</Button>
-        <Button type="link">编辑</Button>
-      </>
-    },
-  },
-];
+
 const QueryTable: React.FC = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [payload, setPayload] = useState({});
+  const [formData, setFormData] = useState({});
   const [addVisible, setAddVisible] = useState(false);
+  const [authVisible, setAuthVisible] = useState(false);
   const { data, loading, pagination } = usePagination(
     async ({ current, pageSize }) => {
-      const res = await getUsers({ ...payload, page: current, pageSize });
+      const res:any = await getUsers({ ...payload, pageIndex: current, pageSize });
       return {
-        list: res.data,
-        total: res.meta.total,
+        list: res.data.list,
+        total: res.data.total,
       };
     },
     {
@@ -78,9 +42,85 @@ const QueryTable: React.FC = () => {
     onChange: onSelectChange,
   };
 
-  const onAddOk = (payload)=>{
-
+  const handleAuth:any = (record) => {
+    setFormData(record);
+    setAuthVisible(true);
   }
+
+  const handleEdit = (record) => () => {
+    setAddVisible(true);
+    setFormData(record);
+  }
+
+  const onAuthOk = async (payload) => {
+    try {
+      const { userId } = formData as any;
+      await authorization({ userId, ...payload });
+      message.success('操作成功');
+      setAuthVisible(false);
+    } catch (error) {
+      message.error('操作失败');
+    }
+  }
+
+  const onAddOk = async (payload) => {
+    try {
+      const { userId } = formData as any;
+      await addUser(userId ? { ...{ userId }, ...payload } : payload);
+      message.success('操作成功');
+      setAddVisible(false);
+    } catch (error) {
+      message.error('操作失败');
+    }
+  }
+
+  const handleDel: any = async (record) => {
+    await delUser({ userId: record.userId });
+    message.success('删除成功');
+  }
+
+  const columns: TableProps<UserRecord>['columns'] = [
+    {
+      title: '用户名称',
+      key: 'nikeName',
+      dataIndex: 'nikeName',
+    },
+    {
+      title: '公司名称',
+      key: 'companyName',
+      dataIndex: 'companyName',
+    },
+    {
+      title: '角色',
+      key: 'userType',
+      dataIndex: 'userType',
+      render: (text) => text === 1 ? '公司' : '个人',
+    },
+    {
+      title: '创建时间',
+      key: 'createTime',
+      dataIndex: 'createTime',
+    },
+    {
+      title: '操作',
+      key: 'action',
+      width: 240,
+      align: 'center',
+      render: (text, record) => {
+        return <>
+          <Popconfirm
+            title="确认删除？"
+            okText="是"
+            cancelText="否"
+          >
+            <Button type="link" danger onClick={handleDel(record)}>删除</Button>
+          </Popconfirm>
+          <Button type="link" onClick={handleAuth(record)}>授权</Button>
+          <Button type="link" onClick={handleEdit(record)}>编辑</Button>
+        </>
+      },
+    },
+  ];
 
   return (
     <PageContainer
@@ -95,7 +135,10 @@ const QueryTable: React.FC = () => {
             },
           }}
         >
-          <FilterForm setPayload={setPayload} handleAdd={setAddVisible} />
+          <FilterForm setPayload={setPayload} handleAdd={() => {
+            setAddVisible(true)
+            setFormData({})
+          }} />
         </Card>
         <Card
           bordered={false}
@@ -124,10 +167,10 @@ const QueryTable: React.FC = () => {
             pagination={pagination}
           />
         </Card>
-        {addVisible && <AddModal onOk={onAddOk} formData={{}} onCancel={() => {setAddVisible(false)}} />}  
+        {addVisible && <AddModal onOk={onAddOk} formData={formData} onCancel={() => { setAddVisible(false) }} />}
+        {authVisible && <AuthModal onOk={onAuthOk} formData={formData} onCancel={() => { setAuthVisible(false) }} />}
       </Space>
     </PageContainer>
   );
 };
-
 export default QueryTable;
